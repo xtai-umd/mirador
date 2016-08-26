@@ -774,20 +774,23 @@
     getAnnotations: function() {
       //first look for manifest annotations
       var _this = this,
-      url = _this.manifest.getAnnotationsListUrl(_this.canvasID);
+      // url = _this.manifest.getAnnotationsListUrl(_this.canvasID);
+      url_list = _this.manifest.getAnnotationsListUrlList(_this.canvasID);
 
-      if (url !== false) {
-        jQuery.get(url, function(list) {
-          _this.annotationsList = _this.annotationsList.concat(list.resources);
-          jQuery.each(_this.annotationsList, function(index, value) {
-            //if there is no ID for this annotation, set a random one
-            if (typeof value['@id'] === 'undefined') {
-              value['@id'] = $.genUUID();
-            }
-            //indicate this is a manifest annotation - which affects the UI
-            value.endpoint = "manifest";
+      if (url_list !== false) {
+        jQuery.each(url_list, function(index, anno_url) {
+          jQuery.get(anno_url, function(list) {
+            var new_annotations = jQuery.each(list.resources, function(index, value) {
+              //if there is no ID for this annotation, set a random one
+              if (typeof value['@id'] === 'undefined') {
+                value['@id'] = $.genUUID();
+              }
+              //indicate this is a manifest annotation - which affects the UI
+              value.endpoint = "manifest";
+            });
+            _this.annotationsList = _this.annotationsList.concat(new_annotations);
+            _this.eventEmitter.publish('ANNOTATIONS_LIST_UPDATED', {windowId: _this.id, annotationsList: _this.annotationsList});
           });
-          _this.eventEmitter.publish('ANNOTATIONS_LIST_UPDATED', {windowId: _this.id, annotationsList: _this.annotationsList});
         });
       }
 

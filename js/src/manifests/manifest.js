@@ -136,6 +136,20 @@
         return canvas.otherContent[0]['@id'];
       } else { return false; }
     },
+    getAnnotationsListUrlList: function(canvasId) {
+      var _this = this;
+      var canvas = jQuery.grep(_this.getCanvases(), function(canvas, index) {
+        return canvas['@id'] === canvasId;
+      })[0];
+
+      if (canvas && canvas.otherContent) {
+        var return_list = [];
+        for (var i = 0; i < canvas.otherContent.length; i++) {
+          return_list.push(canvas.otherContent[i]['@id']);
+        }
+        return return_list;
+      } else { return false; }
+    },
     getStructures: function() {
       var _this = this;
       return _this.jsonLd.structures;
