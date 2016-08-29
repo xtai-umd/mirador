@@ -803,9 +803,19 @@
       var strokeColor = this.strokeColor;
       var fillColor = this.fillColor;
       var fillColorAlpha = this.fillColorAlpha;
-      this.strokeColor = this.state.getStateProperty('drawingToolsSettings').strokeColor;
-      this.fillColor = this.state.getStateProperty('drawingToolsSettings').fillColor;
-      this.fillColorAlpha = this.state.getStateProperty('drawingToolsSettings').fillColorAlpha;
+      if (annotation['@type'].includes('umd:searchResult')) {
+        this.strokeColor = "rgba(255, 255, 255, 0.2)";
+        this.fillColor = "yellow";
+        this.fillColorAlpha = this.state.getStateProperty('drawingToolsSettings').fillColorAlpha;
+      } else if (annotation['@type'].includes('umd:articleSegment')) {
+        this.strokeColor = "rgba(0, 0, 0, 0.2)";
+        this.fillColor = "green";
+        this.fillColorAlpha = this.state.getStateProperty('drawingToolsSettings').fillColorAlpha;
+      } else {
+        this.strokeColor = this.state.getStateProperty('drawingToolsSettings').strokeColor;
+        this.fillColor = this.state.getStateProperty('drawingToolsSettings').fillColor;
+        this.fillColorAlpha = this.state.getStateProperty('drawingToolsSettings').fillColorAlpha;
+      }
       this.mode = 'create';
       this.path = rect.createShape(initialPoint, this);
       var eventData = {
