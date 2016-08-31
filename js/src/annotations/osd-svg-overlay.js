@@ -185,10 +185,6 @@
             _this.currentTool = _this.tools[i];
           }
         }
-        //if we are switching between editing and drawing, remove an old path
-        if (_this.inEditOrCreateMode && _this.path) {
-          _this.removeFocus();
-        }
       }));
 
       var _thisHandleDeleteShapeEvent = function(event,shape){
@@ -273,6 +269,10 @@
             "selector": {
               "@type": "oa:SvgSelector",
               "value": svg
+            },
+            "within": {
+              "@id": _this.state.getWindowObjectById(_this.windowId).loadedManifest,
+              "@type": "sc:Manifest"
             }
           };
           //save to endpoint
@@ -333,6 +333,10 @@
           "selector": {
             "@type": "oa:SvgSelector",
             "value": svg
+          },
+          "within": {
+            "@id": _this.state.getWindowObjectById(_this.windowId).loadedManifest,
+              "@type": "sc:Manifest"
           }
         };
         //save to endpoint
@@ -908,6 +912,14 @@
 
     show: function() {
       this.canvas.style.display = 'block';
+    },
+
+    checkToRemoveFocus: function() {
+      this.currentTool = '';
+      //if we are switching between editing and drawing, remove an old path
+      if (this.inEditOrCreateMode && this.path) {
+        this.removeFocus();
+      }
     },
 
     disable: function() {
