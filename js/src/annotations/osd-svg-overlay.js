@@ -807,9 +807,20 @@
       var strokeColor = this.strokeColor;
       var fillColor = this.fillColor;
       var fillColorAlpha = this.fillColorAlpha;
+      var annotationTypeStyles = this.state.getStateProperty('drawingToolsSettings').annotationTypeStyles;
       this.strokeColor = this.state.getStateProperty('drawingToolsSettings').strokeColor;
       this.fillColor = this.state.getStateProperty('drawingToolsSettings').fillColor;
       this.fillColorAlpha = this.state.getStateProperty('drawingToolsSettings').fillColorAlpha;
+      for (var key in annotationTypeStyles) {
+        if (annotationTypeStyles.hasOwnProperty(key)) {
+          if (annotation['@type'].includes(key)) {
+            this.strokeColor = annotationTypeStyles[key].strokeColor;
+            this.fillColor = annotationTypeStyles[key].fillColor;
+            this.fillColorAlpha = annotationTypeStyles[key].fillColorAlpha;
+            break;
+          }
+        }
+      }
       this.mode = 'create';
       this.path = rect.createShape(initialPoint, this);
       var eventData = {
