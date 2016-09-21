@@ -307,7 +307,7 @@ module.exports = function(grunt) {
       },
       test: {
         reporters: ['spec'],
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         singleRun: true
       },
       cover: {
@@ -315,7 +315,7 @@ module.exports = function(grunt) {
           'js/src/**/*.js': ['coverage']
         },
         reporters: ['progress', 'coverage'],
-        browsers: ['PhantomJS'],
+        browsers: ['Chrome'],
         singleRun: true
       },
       server: {

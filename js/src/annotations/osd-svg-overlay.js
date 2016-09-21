@@ -813,9 +813,15 @@
       for (var key in annotationTypeStyles) {
         if (annotationTypeStyles.hasOwnProperty(key)) {
           if (annotation['@type'].includes(key)) {
-            this.strokeColor = annotationTypeStyles[key].strokeColor;
-            this.fillColor = annotationTypeStyles[key].fillColor;
-            this.fillColorAlpha = annotationTypeStyles[key].fillColorAlpha;
+            if (typeof annotationTypeStyles[key].strokeColor !== 'undefined') {
+              this.strokeColor = annotationTypeStyles[key].strokeColor;
+            }
+            if (typeof annotationTypeStyles[key].fillColor !== 'undefined') {
+              this.fillColor = annotationTypeStyles[key].fillColor;
+            }
+            if (typeof annotationTypeStyles[key].fillColorAlpha !== 'undefined') {
+              this.fillColorAlpha = annotationTypeStyles[key].fillColorAlpha;
+            }
             break;
           }
         }
