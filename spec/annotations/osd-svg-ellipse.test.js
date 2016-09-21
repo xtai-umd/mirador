@@ -446,36 +446,46 @@ describe('Ellipse', function() {
 
     });
 
-    it('should change stroke when hovering ellipse',function(){
-      var red = {
-        r:1,
-        g:0,
-        b:0
-      };
-      this.ellipse.onHover(true,this.shape,'red');
+    it('should change style when hovering ellipse',function(){
+      var red = { r:1, g:0, b:0 };
+      var blue = { r:0, g:0, b:1 };
+      var alpha = 0.1;
+      this.ellipse.onHover(true,this.shape,'red','blue',alpha);
 
       expect(this.shape.data.hovered).toBe(true);
       expect(this.shape.strokeColor.red).toBe(red.r);
       expect(this.shape.strokeColor.green).toBe(red.g);
       expect(this.shape.strokeColor.blue).toBe(red.b);
+      expect(this.shape.fillColor.red).toBe(blue.r);
+      expect(this.shape.fillColor.green).toBe(blue.g);
+      expect(this.shape.fillColor.blue).toBe(blue.b);
+      expect(this.shape.fillColor.alpha).toBe(alpha);
     });
 
-    it('should change stroke back to original when not hovering ellipse',function(){
+    it('should change style back to original when not hovering ellipse',function(){
 
       var oldColor = this.shape.strokeColor;
-      this.ellipse.onHover(true,this.shape,'red');
+      var oldFillColor = this.shape.fillColor;
+      this.ellipse.onHover(true,this.shape,'red','blue',0.1);
 
       expect(this.shape.data.nonHoverStroke.red).toBe(oldColor.red);
       expect(this.shape.data.nonHoverStroke.green).toBe(oldColor.green);
       expect(this.shape.data.nonHoverStroke.blue).toBe(oldColor.blue);
+      expect(this.shape.data.nonHoverFill.red).toBe(oldFillColor.red);
+      expect(this.shape.data.nonHoverFill.green).toBe(oldFillColor.green);
+      expect(this.shape.data.nonHoverFill.blue).toBe(oldFillColor.blue);
+      expect(this.shape.data.nonHoverFill.alpha).toBe(oldFillColor.alpha);
 
       this.ellipse.onHover(false,this.shape);
       expect(this.shape.data.hovered).toBe(undefined);
       expect(this.shape.strokeColor.red).toBe(oldColor.red);
       expect(this.shape.strokeColor.green).toBe(oldColor.green);
       expect(this.shape.strokeColor.blue).toBe(oldColor.blue);
+      expect(this.shape.fillColor.red).toBe(oldFillColor.red);
+      expect(this.shape.fillColor.green).toBe(oldFillColor.green);
+      expect(this.shape.fillColor.blue).toBe(oldFillColor.blue);
+      expect(this.shape.fillColor.alpha).toBe(oldFillColor.alpha);
     });
-
 
     it('should change cursor to move when stroke is hit',function(){
       var hitResult = {

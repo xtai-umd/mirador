@@ -109,7 +109,7 @@
       };
     },
 
-    onHover:function(activate,shape,hoverColor){
+    onHover:function(activate,shape,hoverColor,hoverFillColor,hoverFillColorAlpha){
       // shape needs to have hovered styles
       if(activate && !shape.data.hovered){
         shape.data.nonHoverStroke = shape.strokeColor.clone();

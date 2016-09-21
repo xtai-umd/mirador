@@ -131,12 +131,17 @@
       'shapeHandleSize':10,
       'fixedShapeSize':10,
       'newlyCreatedShapeStrokeWidthFactor':5,
-      'hoverColor':'yellow',
+      'hoverColor':'deepSkyBlue',
+      'hoverFillColor': 'deepSkyBlue',
+      'hoverFillColorAlpha': 0.2,
       'annotationTypeStyles': {
         'type:example': {
-          'strokeColor': 'deepSkyBlue',
-          'fillColor': 'deepSkyBlue',
-          'fillColorAlpha': 0.0
+          'strokeColor': 'yellow',
+          'fillColor': 'yellow',
+          'fillColorAlpha': 0.0,
+          'hoverColor':'yellow',
+          'hoverFillColor': 'yellow',
+          'hoverFillColorAlpha': 0.2
         }
       }
     },

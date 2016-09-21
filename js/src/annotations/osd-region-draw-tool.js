@@ -141,6 +141,9 @@
         segments: true
       };
       var hoverColor = this.state.getStateProperty('drawingToolsSettings').hoverColor;
+      var hoverFillColor = this.state.getStateProperty('drawingToolsSettings').hoverFillColor;
+      var hoverFillColorAlpha = this.state.getStateProperty('drawingToolsSettings').hoverFillColorAlpha;
+      var annotationTypeStyles = this.state.getStateProperty('drawingToolsSettings').annotationTypeStyles;
       var annotations = [];
       for (var key in _this.annotationsToShapesMap) {
         if (_this.annotationsToShapesMap.hasOwnProperty(key)) {
@@ -151,7 +154,28 @@
               annotations.push(shapeArray[idx].data.annotation);
               if(shapeTool.onHover){
                 for(var k=0;k<shapeArray.length;k++){
-                  shapeTool.onHover(true,shapeArray[k],hoverColor);
+                  var annoStyle = {
+                    'hoverColor': hoverColor,
+                    'hoverFillColor': hoverFillColor,
+                    'hoverFillColorAlpha': hoverFillColorAlpha
+                  };
+                  for (var styleKey in annotationTypeStyles) {
+                    if (annotationTypeStyles.hasOwnProperty(styleKey)) {
+                      if (shapeArray[k].data.annotation['@type'].includes(styleKey)) {
+                        if (typeof annotationTypeStyles[styleKey].hoverColor !== 'undefined') {
+                          annoStyle.hoverColor = annotationTypeStyles[styleKey].hoverColor;
+                        }
+                        if (typeof annotationTypeStyles[styleKey].hoverFillColor !== 'undefined') {
+                          annoStyle.hoverFillColor = annotationTypeStyles[styleKey].hoverFillColor;
+                        }
+                        if (typeof annotationTypeStyles[styleKey].hoverFillColorAlpha !== 'undefined') {
+                          annoStyle.hoverFillColorAlpha = annotationTypeStyles[styleKey].hoverFillColorAlpha;
+                        }
+                        break;
+                      }
+                    }
+                  }
+                  shapeTool.onHover(true,shapeArray[k],annoStyle.hoverColor,annoStyle.hoverFillColor,annoStyle.hoverFillColorAlpha);
                 }
               }
               break;
