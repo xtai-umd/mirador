@@ -152,7 +152,7 @@
             var shapeTool = this.svgOverlay.getTool(shapeArray[idx]);
             if (shapeArray[idx].hitTest(location, hitOptions)) {
               annotations.push(shapeArray[idx].data.annotation);
-              if(shapeTool.onHover){
+              if(shapeTool.onHover && !shapeArray[idx].data.hovered){
                 for(var k=0;k<shapeArray.length;k++){
                   var annoStyle = {
                     'hoverColor': hoverColor,
@@ -179,10 +179,8 @@
                 }
               }
               break;
-            }else{
-              if(shapeTool.onHover){
-                shapeTool.onHover(false,shapeArray[idx]);
-              }
+            } else if(shapeTool.onHover){
+              shapeTool.onHover(false,shapeArray[idx]);
             }
           }
         }
