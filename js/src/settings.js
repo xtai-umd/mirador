@@ -141,7 +141,8 @@
           'fillColorAlpha': 0.0,
           'hoverColor':'yellow',
           'hoverFillColor': 'yellow',
-          'hoverFillColorAlpha': 0.2
+          'hoverFillColorAlpha': 0.2,
+          'notShowTooltip': true
         }
       }
     },
