@@ -157,7 +157,7 @@
             };
             var hideTooltip = false;
             if (shapeArray[idx].hitTest(location, hitOptions)) {
-              if(shapeTool.onHover){
+              if(shapeTool.onHover && !shapeArray[idx].data.hovered){              
                 for (var styleKey in annotationTypeStyles) {
                   if (annotationTypeStyles.hasOwnProperty(styleKey) && shapeArray[idx].data.annotation['@type'].includes(styleKey)) {
                     if (typeof annotationTypeStyles[styleKey].hoverColor !== 'undefined') {
