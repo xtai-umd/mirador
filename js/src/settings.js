@@ -142,7 +142,7 @@
           'hoverColor':'yellow',
           'hoverFillColor': 'yellow',
           'hoverFillColorAlpha': 0.2,
-          'notShowTooltip': true
+          'hideTooltip': true
         }
       }
     },

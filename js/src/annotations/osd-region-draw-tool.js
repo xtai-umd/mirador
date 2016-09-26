@@ -155,7 +155,7 @@
               'hoverFillColor': hoverFillColor,
               'hoverFillColorAlpha': hoverFillColorAlpha
             };
-            var notShowTooltip = false;
+            var hideTooltip = false;
             if (shapeArray[idx].hitTest(location, hitOptions)) {
               if(shapeTool.onHover){
                 for (var styleKey in annotationTypeStyles) {
@@ -169,14 +169,14 @@
                     if (typeof annotationTypeStyles[styleKey].hoverFillColorAlpha !== 'undefined') {
                       annoStyle.hoverFillColorAlpha = annotationTypeStyles[styleKey].hoverFillColorAlpha;
                     }
-                    if (typeof annotationTypeStyles[styleKey].notShowTooltip !== 'undefined' && annotationTypeStyles[styleKey].notShowTooltip) {
-                      notShowTooltip = true;
+                    if (typeof annotationTypeStyles[styleKey].hideTooltip !== 'undefined' && annotationTypeStyles[styleKey].hideTooltip) {
+                      hideTooltip = true;
                     }
                     break;
                   }
                 }
                 shapeTool.onHover(true,shapeArray[idx],annoStyle.hoverColor,annoStyle.hoverFillColor,annoStyle.hoverFillColorAlpha);
-                if (!notShowTooltip) {
+                if (!hideTooltip) {
                   annotations.push(shapeArray[idx].data.annotation);
                 }
               }
