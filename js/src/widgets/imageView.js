@@ -12,6 +12,7 @@
       elemOsd:          null,
       manifest:         null,
       osd:              null,
+      osdSelection:     null,
       osdOptions: {
         osdBounds:        null,
         zoomLevel:        null
@@ -195,6 +196,19 @@
           _this.hud.manipulationState.displayOn(this);
         } else {
           _this.hud.manipulationState.displayOff(this);
+        }
+      });
+
+      this.element.find('.mirador-clipping-toggle').on('click', function() {
+        if (_this.hud.clippingState.current === 'none') {
+          _this.hud.clippingState.startup(this);
+        }
+        if (_this.hud.clippingState.current === 'clippingOff') {
+          _this.osdSelection.enable();
+          _this.hud.clippingState.displayOn(this);
+        } else {
+          _this.osdSelection.disable();
+          _this.hud.clippingState.displayOff(this);
         }
       });
 
@@ -549,6 +563,29 @@
           'id':           osdID,
           'tileSources':  infoJson,
           'uniqueID' : uniqueID
+        });
+
+        _this.osdSelection = _this.osd.selection({
+          // startRotated: false,
+          showSelectionControl: false,
+          prefixUrl: './build/mirador/images/',
+          keyboardShortcut: false,
+          onSelection: function(rect) {
+            if (rect.height > 0 && rect.width > 0) {
+              if (rect.x < 0) { rect.x = 0; }
+              if (rect.y < 0) { rect.y = 0; }
+              // 100,1000,4000,2000/full/0/default.jpg
+              var clip = '/' + rect.x + ',' + rect.y  + ',' + rect.width + ',' + rect.height + '/full/0/default.jpg';
+              var a = document.createElement('a');
+              a.href = imageUrl + clip;
+              a.download = 'clipping.jpg'; // a.target = "_blank";
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              _this.osdSelection.disable();
+              _this.hud.clippingState.displayOff();
+            }
+          }
         });
 
         _this.osd.addHandler('zoom', $.debounce(function(){

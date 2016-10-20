@@ -19,12 +19,14 @@
       this.createStateMachines();
 
       var showAnno = typeof this.showAnno !== 'undefined' ? this.showAnno : this.canvasControls.annotations.annotationLayer,
-      showImageControls = typeof this.showImageControls !== 'undefined' ? this.showImageControls : this.canvasControls.imageManipulation.manipulationLayer;
+      showImageControls = typeof this.showImageControls !== 'undefined' ? this.showImageControls : this.canvasControls.imageManipulation.manipulationLayer,
+      showImageClipping = typeof this.showImageClipping !== 'undefined' ? this.showImageClipping : this.canvasControls.imageClipping;
       this.element = jQuery(this.template({
         showNextPrev : this.showNextPrev,
         showBottomPanel : typeof this.bottomPanelAvailable === 'undefined' ? true : this.bottomPanelAvailable,
         showAnno : showAnno,
-        showImageControls : showImageControls
+        showImageControls : showImageControls,
+        showImageClipping : showImageClipping
       })).appendTo(this.appendTo);
 
       if (showAnno || showImageControls) {
@@ -64,6 +66,14 @@
           _this.annoState.displayOn();
         } else {
           _this.annoState.choosePointer();
+        }
+      });
+
+      this.eventEmitter.subscribe('SET_ANNO_STATE_OFF.' + this.windowId, function(event) {
+        if (_this.annoState.current === 'none') {
+          _this.annoState.startup();
+        } else if (_this.annoState.current !== 'off') {
+          _this.annoState.displayOff();
         }
       });
     },
@@ -204,6 +214,37 @@
           }
         }
       });
+
+      this.clippingState = StateMachine.create({
+        events: [
+          { name: 'startup',  from: 'none',  to: 'clippingOff' },
+          { name: 'displayOn',  from: 'clippingOff',  to: 'clippingOn' },
+          { name: 'displayOff', from: 'clippingOn', to: 'clippingOff' }
+        ],
+        callbacks: {
+          onstartup: function(event, from, to) {
+            _this.eventEmitter.publish(('windowUpdated'), {
+              id: _this.windowId,
+              clippingState: to
+            });
+          },
+          ondisplayOn: function(event, from, to) {
+            _this.eventEmitter.publish('HUD_ADD_CLASS.'+_this.windowId, ['.mirador-clipping-toggle', 'selected']);
+            _this.eventEmitter.publish('SET_ANNO_STATE_OFF');
+            _this.eventEmitter.publish(('windowUpdated'), {
+              id: _this.windowId,
+              clippingState: to
+            });
+          },
+          ondisplayOff: function(event, from, to) {
+            _this.eventEmitter.publish('HUD_REMOVE_CLASS.'+_this.windowId, ['.mirador-clipping-toggle', 'selected']);
+            _this.eventEmitter.publish(('windowUpdated'), {
+              id: _this.windowId,
+              clippingState: to
+            });
+          }
+        }
+      });
     },
 
     template: Handlebars.compile([
@@ -225,6 +266,13 @@
                                   '<div class="mirador-manipulation-controls">',
                                   '<a class="mirador-manipulation-toggle hud-control" role="button" title="{{t "imageManipulationTooltip"}}" aria-label="{{t "imageManipulationTooltip"}}">',
                                   '<i class="material-icons">tune</i>',
+                                  '</a>',
+                                  '</div>',
+                                 '{{/if}}',
+                                 '{{#if showImageClipping}}',
+                                  '<div class="mirador-clipping-control">',
+                                  '<a class="mirador-clipping-toggle hud-control" role="button" title="{{t "imageClippingTooltip"}}" aria-label="{{t "imageClippingTooltip"}}">',
+                                  '<i class="material-icons">crop</i>',
                                   '</a>',
                                   '</div>',
                                  '{{/if}}',
