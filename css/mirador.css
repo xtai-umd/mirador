@@ -1238,6 +1238,10 @@ li.highlight {
   left: 0px;
   min-width: 330px;
 }
+.mirador-clipping-control {
+  position: relative;
+  top: 40px;
+}
 
 /* color picker custom style
 ---------------------------------------------------------------------------- */
