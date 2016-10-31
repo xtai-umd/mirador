@@ -155,9 +155,14 @@
       }
     },
 
-    onHover:function(activate,shape,hoverColor,hoverFillColor,hoverFillColorAlpha){
+    onHover: function(activate, shape, hoverColor, hoverFillColor, hoverFillColorAlpha){
       // shape needs to have hovered styles
       if(activate && !shape.data.hovered){
+        if (shape.data.annotation) {
+          umdMiradorOCRHovered = true;
+          jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
+          umdMiradorOCRText = shape.data.annotation.resource[0].chars;
+        }
         shape.data.nonHoverStroke = shape.strokeColor.clone();
         shape.data.nonHoverFill = shape.fillColor.clone();
         shape.data.hovered = true;
@@ -167,6 +172,8 @@
       }
       // shape is not longer hovered
       if(!activate && shape.data.hovered){
+        umdMiradorOCRHovered = false;
+        jQuery('div.openseadragon-canvas').css('cursor', 'default');
         shape.strokeColor = shape.data.nonHoverStroke.clone();
         shape.fillColor = shape.data.nonHoverFill.clone();
         delete shape.data.nonHoverStroke;
