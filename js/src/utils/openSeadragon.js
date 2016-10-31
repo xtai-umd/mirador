@@ -12,7 +12,12 @@
         blendTime:        0.1,
         alwaysBlend:      false,
         prefixUrl:        'images/openseadragon/',
-        showNavigationControl: false
+        showNavigationControl: false,
+        // umd custom options
+        gestureSettingsMouse: {
+          clickToZoom: false,
+          dblClickToZoom: true
+        }
       }, options)
 
     );
