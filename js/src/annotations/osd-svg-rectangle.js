@@ -158,10 +158,12 @@
     onHover: function(activate, shape, hoverColor, hoverFillColor, hoverFillColorAlpha){
       // shape needs to have hovered styles
       if(activate && !shape.data.hovered){
-        if (typeof shape.data.annotation !== 'undefined' && typeof umdMiradorOCRHovered !== 'undefined' && typeof umdMiradorOCRText !== 'undefined') {
-          umdMiradorOCRHovered = true;
-          jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
-          umdMiradorOCRText = shape.data.annotation.resource[0].chars;
+        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR){
+          if(typeof shape.data.annotation !== 'undefined' && typeof umdMiradorOCRHovered !== 'undefined' && typeof umdMiradorOCRText !== 'undefined'){
+            umdMiradorOCRHovered = true;
+            jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
+            umdMiradorOCRText = shape.data.annotation.resource[0].chars;
+          }
         }
         shape.data.nonHoverStroke = shape.strokeColor.clone();
         shape.data.nonHoverFill = shape.fillColor.clone();
@@ -172,7 +174,7 @@
       }
       // shape is not longer hovered
       if(!activate && shape.data.hovered){
-        if (typeof umdMiradorOCRHovered !== 'undefined') {
+        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR && typeof umdMiradorOCRHovered !== 'undefined'){
           umdMiradorOCRHovered = false;
           jQuery('div.openseadragon-canvas').css('cursor', 'default');
         }

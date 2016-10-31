@@ -105,6 +105,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = true;
+            }
           },
           ondisplayOn: function(event, from, to) {
             _this.eventEmitter.publish('HUD_ADD_CLASS.'+_this.windowId, ['.mirador-osd-annotations-layer', 'selected']);
@@ -120,6 +123,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = true;
+            }
           },
           ondisplayOff: function(event, from, to) {
             if (_this.annoEndpointAvailable) {
@@ -134,6 +140,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = false;
+            }
           },
           onchoosePointer: function(event, from, to) {
             _this.eventEmitter.publish('HUD_REMOVE_CLASS.'+_this.windowId, ['.mirador-osd-edit-mode', 'selected']);
@@ -146,6 +155,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = false;
+            }
           },
           onchooseShape: function(event, from, to, shape) {
             _this.eventEmitter.publish('HUD_REMOVE_CLASS.'+_this.windowId, ['.mirador-osd-pointer-mode', 'selected']);
@@ -161,6 +173,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = false;
+            }
           },
           onchangeShape: function(event, from, to, shape) {
             _this.eventEmitter.publish('HUD_REMOVE_CLASS.'+_this.windowId, ['.mirador-osd-pointer-mode', 'selected']);
@@ -176,6 +191,9 @@
               id: _this.windowId,
               annotationState: to
             });
+            if (typeof umdMiradorOCR !== 'undefined') {
+              umdMiradorOCR = false;
+            }
           },
           onrefresh: function(event, from, to) {
             //TODO
