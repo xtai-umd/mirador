@@ -355,7 +355,7 @@ describe('BookView', function() {
           close: function() {}
         };
         spyOn(subject.osd, 'close');
-        subject.updateImage(this.imagesList[1]['@id']);
+        subject.updateImage(this.imagesList[2]['@id']);
       });
       it('should fire event', function() {
         expect(subject.eventEmitter.publish).toHaveBeenCalled();
@@ -457,19 +457,19 @@ describe('BookView', function() {
       });
       it('stitches left-to-right', function() {
         subject.viewingDirection = 'left-to-right';
-        expect(subject.getStitchList()).toEqual([this.imagesList[3], this.imagesList[4]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[5]]);
       });
       it('stitches right-to-left', function() {
         subject.viewingDirection = 'right-to-left';
-        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[3]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[4]]);
       });
       it('stitches top-down', function() {
         subject.viewingDirection = 'top-to-bottom';
-        expect(subject.getStitchList()).toEqual([this.imagesList[3], this.imagesList[4]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[5]]);
       });
       it('stitches bottom-up', function() {
         subject.viewingDirection = 'bottom-to-top';
-        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[3]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[4]]);
       });
     });
     describe('Odd pages', function() {
@@ -480,19 +480,19 @@ describe('BookView', function() {
       });
       it('stitches left-to-right', function() {
         subject.viewingDirection = 'left-to-right';
-        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[6]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[5]]);
       });
       it('stitches right-to-left', function() {
         subject.viewingDirection = 'right-to-left';
-        expect(subject.getStitchList()).toEqual([this.imagesList[6], this.imagesList[5]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[4]]);
       });
       it('stitches top-down', function() {
         subject.viewingDirection = 'top-to-bottom';
-        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[6]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[4], this.imagesList[5]]);
       });
       it('stitches bottom-up', function() {
         subject.viewingDirection = 'bottom-to-top';
-        expect(subject.getStitchList()).toEqual([this.imagesList[6], this.imagesList[5]]);
+        expect(subject.getStitchList()).toEqual([this.imagesList[5], this.imagesList[4]]);
       });
     });
     // TODO: Fill this in once implemented

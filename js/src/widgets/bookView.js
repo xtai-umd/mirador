@@ -411,11 +411,11 @@ bindEvents: function() {
         stitchList = [this.currentImg];
       } else if (this.viewingHint === 'paged') {
         // determine the other image for this pair based on index and viewingDirection
-        if (this.currentImgIndex === 0 || this.currentImgIndex === this.imagesList.length-1) {
+        if (this.currentImgIndex === this.imagesList.length - 1 && this.imagesList.length % 2 === 1) {
           //first page (front cover) or last page (back cover), display on its own
           stitchList = [this.currentImg];
-        } else if (this.currentImgIndex % 2 === 0) {
-          // even, get previous page.  set order in array based on viewingDirection
+        } else if (this.currentImgIndex % 2 === 1) {
+          // odd (start from 0), get previous page.  set order in array based on viewingDirection
           switch (this.viewingDirection) {
             case "left-to-right":
               leftIndex[0] = this.currentImgIndex-1;
@@ -437,7 +437,7 @@ bindEvents: function() {
               break;
           }
         } else {
-          // odd, get next page
+          // even, get next page
           switch (this.viewingDirection) {
             case "left-to-right":
               rightIndex[0] = this.currentImgIndex+1;
