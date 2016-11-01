@@ -367,7 +367,7 @@ bindEvents: function() {
     next: function() {
       var _this = this;
       var next;
-      if (this.currentImgIndex % 2 === 0) {
+      if (this.currentImgIndex % 2 === 1) {
         next = this.currentImgIndex + 1;
       } else {
         next = this.currentImgIndex + 2;

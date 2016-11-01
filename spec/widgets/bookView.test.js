@@ -390,7 +390,7 @@ describe('BookView', function() {
     it('should move one canvas forward on non-last canvases', function() {
       subject.currentImgIndex = 0;
       subject.next();
-      expect(this.eventEmitter.publish).toHaveBeenCalledWith('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[1]['@id']);
+      expect(this.eventEmitter.publish).toHaveBeenCalledWith('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[2]['@id']);
     });
     it('should stay on last canvas', function() {
       subject.currentImgIndex = this.imagesList.length-1;
