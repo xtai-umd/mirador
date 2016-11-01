@@ -693,10 +693,11 @@
         this.canvasID = canvasID;
         this.currentImgIndex = $.getImageIndexById(this.imagesList, canvasID);
         this.currentImg = this.imagesList[this.currentImgIndex];
-        this.osdOptions = {
-          osdBounds:        null,
-          zoomLevel:        null
-        };
+        this.osdOptions = _this.osdOptions;
+        // this.osdOptions = {
+        //   osdBounds:        null,
+        //   zoomLevel:        null
+        // };
         this.eventEmitter.publish('resetImageManipulationControls.'+this.windowId);
         this.osd.close();
         this.createOpenSeadragonInstance($.Iiif.getImageUrl(this.currentImg));
