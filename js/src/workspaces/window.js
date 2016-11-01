@@ -28,7 +28,7 @@
         },
         'ScrollView': {
           'overlay' : {'MetadataView' : false},
-          'bottomPanel' : {'' : false}
+          'bottomPanel' : {'ThumbnailsView' : false}
         },
         'BookView': {
           'overlay' : {'MetadataView' : false},
@@ -337,18 +337,6 @@
 
     bindEvents: function() {
       var _this = this;
-
-      //this event should trigger from layout
-      jQuery(window).resize($.debounce(function(){
-        if (_this.focusModules.ScrollView) {
-          var containerHeight = _this.element.find('.view-container').height();
-          var triggerShow = false;
-          if (_this.viewType === "ScrollView") {
-            triggerShow = true;
-          }
-          _this.focusModules.ScrollView.reloadImages(Math.floor(containerHeight * _this.scrollImageRatio), triggerShow);
-        }
-      }, 300));
 
       this.element.find('.mirador-osd-fullscreen').on('click', function() {
         if ($.fullscreenElement()) {
@@ -703,22 +691,22 @@
     toggleScrollView: function(canvasID) {
       this.canvasID = canvasID;
       if (this.focusModules.ScrollView === null) {
-        var containerHeight = this.element.find('.view-container').height();
         this.focusModules.ScrollView = new $.ScrollView({
           manifest: this.manifest,
           appendTo: this.element.find('.view-container'),
+          windowId: this.id,
           state:  this.state,
           eventEmitter: this.eventEmitter,
-          windowId: this.id,
-          canvasID: this.canvasID,
+          canvasID: canvasID,
           imagesList: this.imagesList,
-          thumbInfo: {thumbsHeight: Math.floor(containerHeight * this.scrollImageRatio), listingCssCls: 'scroll-listing-thumbs', thumbnailCls: 'scroll-view'}
+          osdOptions: this.windowOptions,
+          bottomPanelAvailable: this.bottomPanelAvailable
         });
       } else {
         var view = this.focusModules.ScrollView;
         view.updateImage(canvasID);
       }
-      this.toggleFocus('ScrollView', '');
+      this.toggleFocus('ScrollView', 'ScrollView');
     },
 
     updateFocusImages: function(imageList) {
