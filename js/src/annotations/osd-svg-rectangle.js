@@ -158,8 +158,8 @@
     onHover: function(activate, shape, hoverColor, hoverFillColor, hoverFillColorAlpha){
       // shape needs to have hovered styles
       if(activate && !shape.data.hovered){
-        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR){
-          if(typeof shape.data.annotation !== 'undefined' && typeof umdMiradorOCRHovered !== 'undefined' && typeof umdMiradorOCRText !== 'undefined'){
+        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR && typeof shape.data.annotation !== 'undefined'){
+          if(typeof shape.data.annotation.resource[0].chars !== 'undefined' && shape.data.annotation.resource[0].chars !== '' && typeof umdMiradorOCRHovered !== 'undefined' && typeof umdMiradorOCRText !== 'undefined'){
             umdMiradorOCRHovered = true;
             jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
             umdMiradorOCRText = shape.data.annotation.resource[0].chars;
