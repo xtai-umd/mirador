@@ -122,7 +122,7 @@
       });
     },
 
-bindEvents: function() {
+    bindEvents: function() {
       var _this = this;
 
       this.element.find('.mirador-osd-next').on('click', function() {
@@ -383,7 +383,7 @@ bindEvents: function() {
     previous: function() {
       var _this = this;
       var prev;
-      if (this.currentImgIndex % 2 === 0) {
+      if (this.currentImgIndex % 2 === 1) {
         prev = this.currentImgIndex - 2;
       } else {
         prev = this.currentImgIndex - 1;

@@ -404,9 +404,9 @@ describe('BookView', function() {
       spyOn(this.eventEmitter, 'publish').and.callThrough();
     });
     it('should move one canvas back on non-first canvases', function() {
-      subject.currentImgIndex = 1;
+      subject.currentImgIndex = 2;
       subject.previous();
-      expect(this.eventEmitter.publish).toHaveBeenCalledWith('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[0]['@id']);
+      expect(this.eventEmitter.publish).toHaveBeenCalledWith('SET_CURRENT_CANVAS_ID.' + this.windowId, this.imagesList[1]['@id']);
     });
     it('should stay on first canvas', function() {
       subject.currentImgIndex = 0;
