@@ -583,7 +583,7 @@
               a.click();
               document.body.removeChild(a);
               _this.osdSelection.disable();
-              _this.hud.clippingState.displayOff();
+              _this.hud.clippingState.ondisplayOff();
             }
           }
         });
