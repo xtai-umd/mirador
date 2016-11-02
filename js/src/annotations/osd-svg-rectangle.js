@@ -158,12 +158,16 @@
     onHover: function(activate, shape, hoverColor, hoverFillColor, hoverFillColorAlpha){
       // shape needs to have hovered styles
       if(activate && !shape.data.hovered){
-        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR && typeof shape.data.annotation !== 'undefined'){
-          if(typeof shape.data.annotation.resource[0].chars !== 'undefined' && shape.data.annotation.resource[0].chars !== '' && typeof umdMiradorOCRHovered !== 'undefined' && typeof umdMiradorOCRText !== 'undefined'){
-            umdMiradorOCRHovered = true;
-            jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
-            umdMiradorOCRText = shape.data.annotation.resource[0].chars;
-          }
+        if (typeof umdMiradorOCR !== 'undefined' &&
+            umdMiradorOCR &&
+            typeof shape.data.annotation !== 'undefined' &&
+            typeof shape.data.annotation.resource[0].chars !== 'undefined' &&
+            shape.data.annotation.resource[0].chars !== '' &&
+            typeof umdMiradorOCRHovered !== 'undefined' &&
+            typeof umdMiradorOCRText !== 'undefined'){
+          umdMiradorOCRHovered += 1;
+          umdMiradorOCRText = shape.data.annotation.resource[0].chars;
+          jQuery('div.openseadragon-canvas').css('cursor', 'pointer');
         }
         shape.data.nonHoverStroke = shape.strokeColor.clone();
         shape.data.nonHoverFill = shape.fillColor.clone();
@@ -174,9 +178,13 @@
       }
       // shape is not longer hovered
       if(!activate && shape.data.hovered){
-        if(typeof umdMiradorOCR !== 'undefined' && umdMiradorOCR && typeof umdMiradorOCRHovered !== 'undefined'){
-          umdMiradorOCRHovered = false;
-          jQuery('div.openseadragon-canvas').css('cursor', 'default');
+        if (typeof umdMiradorOCRHovered !== 'undefined' &&
+            umdMiradorOCR &&
+            umdMiradorOCRHovered >= 1){
+          umdMiradorOCRHovered -= 1;
+          if (umdMiradorOCRHovered === 0) {
+            jQuery('div.openseadragon-canvas').css('cursor', 'default');
+          }
         }
         shape.strokeColor = shape.data.nonHoverStroke.clone();
         shape.fillColor = shape.data.nonHoverFill.clone();
